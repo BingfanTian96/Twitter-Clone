@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function useUserInfo(userId, sessionStatus) {
 	const [userInfo, setUserInfo] = useState(null);
 	const [status, setStatus] = useState("loading");
 
-	function getUserInfo() {
+	async function getUserInfo() {
 		if (sessionStatus === "loading") {
 			return;
 		}
@@ -12,13 +13,10 @@ export default function useUserInfo(userId, sessionStatus) {
 			setStatus("unauthenticated");
 			return;
 		}
-		console.log("fetch");
-		fetch("/api/users/" + userId).then((response) => {
-			response.json().then((json) => {
-				setUserInfo(json.user);
-				setStatus("authenticated");
-			});
-		});
+		const response = await axios.get("/api/users/" + userId);
+		setUserInfo(response.data);
+		setStatus("authenticated");
+		console.log(userInfo);
 	}
 	useEffect(() => {
 		getUserInfo();

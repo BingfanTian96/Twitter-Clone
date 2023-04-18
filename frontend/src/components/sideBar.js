@@ -3,7 +3,6 @@ import ProfilePill from "./profilePill";
 import MenuItem from "./menuItem";
 
 export default function SideBar({ isLogin, curUser }) {
-	console.log(isLogin);
 	return (
 		<div className="flex flex-col w-1/3 h-full justify-start items-start px-10 bg-white">
 			{/*  twitter icon */}
