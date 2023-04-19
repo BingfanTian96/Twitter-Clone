@@ -13,7 +13,7 @@ function findUserByUsername(username) {
 }
 
 function findUserById(id) {
-	return UserModel.find({ _id: id }).exec();
+	return UserModel.findById({ _id: id }).exec();
 }
 
 module.exports = {

@@ -1,5 +1,6 @@
 const express = require("express");
 const users = require("./apis/user");
+const tweets = require("./apis/tweet");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/users/", users);
+app.use("/api/tweets/", tweets);
 
 let frontend_dir = path.join(__dirname, "..", "frontend");
 

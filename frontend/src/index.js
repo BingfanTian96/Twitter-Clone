@@ -5,6 +5,10 @@ import App from "./pages/App";
 // import LoginPage from "./pages/login";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+
+TimeAgo.addDefaultLocale(en);
 
 const router = createBrowserRouter([
 	{

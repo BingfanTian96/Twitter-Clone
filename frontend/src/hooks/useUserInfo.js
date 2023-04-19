@@ -13,10 +13,10 @@ export default function useUserInfo(userId, sessionStatus) {
 			setStatus("unauthenticated");
 			return;
 		}
-		const response = await axios.get("/api/users/" + userId);
-		setUserInfo(response.data);
-		setStatus("authenticated");
-		console.log(userInfo);
+		await axios.get("/api/users/" + userId).then(function (response) {
+			setUserInfo(response.data);
+			setStatus("authenticated");
+		});
 	}
 	useEffect(() => {
 		getUserInfo();
