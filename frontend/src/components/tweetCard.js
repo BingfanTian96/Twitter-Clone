@@ -3,17 +3,18 @@ import useUserInfo from "../hooks/useUserInfo";
 import { useState } from "react";
 import ReactTimeAgo from "react-time-ago";
 
-export default function TweetCard({ tweet, sessionStatus }) {
+export default function TweetCard({ tweet }) {
 	const [isLoading, setLoading] = useState(true);
 	// const [isLogin, setLogin] = useState(true);
 	const userId = tweet.author;
 	// console.log(tweet.author);
+	const time = parseInt(tweet.createdAt);
 
 	const {
 		userInfo,
 		setUserInfo,
 		status: userInfoStatus,
-	} = useUserInfo(userId, sessionStatus);
+	} = useUserInfo(userId);
 	// console.log(tweet);
 	if (userInfoStatus === "loading") {
 		return "loading user info";
@@ -23,7 +24,6 @@ export default function TweetCard({ tweet, sessionStatus }) {
 		if (!tweet.images?.length) {
 			return "";
 		}
-		console.log(tweet.images);
 		return (
 			<div className="flex -mx-1">
 				{tweet.images.length > 0 &&
@@ -40,18 +40,6 @@ export default function TweetCard({ tweet, sessionStatus }) {
 			</div>
 		);
 	}
-
-	// if (userInfoStatus === "authenticated") {
-	// 	setLogin(true);
-	// }
-
-	// function logOut() {
-	// 	setUserInfo(null);
-	// }
-
-	// console.log(userInfo);
-	// console.log(userInfo.img);
-	// const user = userInfo;
 
 	return (
 		<div className="flex flex-row p-3  border-b-2">

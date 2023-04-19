@@ -2,25 +2,30 @@ import "../css/App.css";
 import axios from "axios";
 import { useState } from "react";
 
-export default function TweetPostForm({ curUser }) {
+export default function TweetPostForm({ curUser, onPost }) {
 	const [text, setText] = useState("");
 	const [images, setImages] = useState([]);
+	const userId = curUser._id;
 
-	function handlePostSubmit(e) {
+	async function onPostSubmit(e) {
 		e.preventDefault();
 		// await axios.post("/api/posts", { text, parent, images });
-		console.log({ text });
+		await axios.post("/api/tweets/", {
+			author: curUser._id,
+			text: text,
+			images: images,
+		});
 		setText("");
 		setImages([]);
-		// if (onPost) {
-		// 	onPost();
-		// }
+		if (onPost) {
+			onPost();
+		}
 	}
 
 	return (
 		<form
 			className="flex flex-row p-3 w-full border-b-2"
-			onSubmit={handlePostSubmit}
+			onSubmit={onPostSubmit}
 		>
 			<img
 				src={curUser.img}

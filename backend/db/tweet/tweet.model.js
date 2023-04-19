@@ -16,8 +16,8 @@ function deleteTweet(tweetId) {
 	return TweetModel.deleteOne({ _id: tweetId }).exec();
 }
 
-function findTweetByUsername(username) {
-	return TweetModel.find({ username: username }).exec();
+function getTweetByUserId(userId) {
+	return TweetModel.find({ author: userId }).sort({ createdAt: -1 }).exec();
 }
 
 function getTweetById(id) {
@@ -28,6 +28,6 @@ module.exports = {
 	createTweet,
 	getAllTweet,
 	deleteTweet,
-	findTweetByUsername,
+	getTweetByUserId,
 	getTweetById,
 };

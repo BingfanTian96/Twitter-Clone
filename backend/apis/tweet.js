@@ -22,16 +22,19 @@ router.get("/", function (req, res) {
 		});
 });
 
+router.get("/:id", function (req, res) {
+	TweetModel.getTweetByUserId()
+		.then(function (dbResponse) {
+			res.cookie("tweetCount", dbResponse.length + 1);
+			res.send(dbResponse);
+		})
+		.catch(function (error) {
+			res.status(500).send(error);
+		});
+});
+
 router.post("/", function (req, res) {
 	const newTweet = req.body;
-	// const username = request.cookies.username;
-	// let decryptedUsername;
-	// try {
-	// 	decryptedUsername = jwt.verify(username, "HUNTERS_PASSWORD");
-	// } catch (e) {
-	// 	return response.status(404).send("Invalid request");
-	// }
-	// newTweet.username = decryptedUsername;
 	TweetModel.createTweet(newTweet)
 		.then(function (dbResponse) {
 			res.send("Tweet Successfully Created");

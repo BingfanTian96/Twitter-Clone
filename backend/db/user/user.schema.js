@@ -14,5 +14,5 @@ exports.UserSchema = new Schema(
 		name: String,
 		img: String,
 	},
-	{ collection: "Twitter-clone-users" }
+	{ timestamps: true, collection: "Twitter-clone-users" }
 );
