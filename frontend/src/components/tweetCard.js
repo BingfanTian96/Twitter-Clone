@@ -1,23 +1,25 @@
+import { Link } from "react-router-dom";
 import "../css/App.css";
 import useUserInfo from "../hooks/useUserInfo";
 import { useState } from "react";
 import ReactTimeAgo from "react-time-ago";
 
-export default function TweetCard({ tweet }) {
+export default function TweetCard({ tweet, isDetail }) {
 	const [isLoading, setLoading] = useState(true);
+
 	// const [isLogin, setLogin] = useState(true);
 	const userId = tweet.author;
 	// console.log(tweet.author);
-	const time = parseInt(tweet.createdAt);
+	const time = new Date(tweet.createdAt);
 
 	const {
 		userInfo,
 		setUserInfo,
 		status: userInfoStatus,
 	} = useUserInfo(userId);
-	// console.log(tweet);
+
 	if (userInfoStatus === "loading") {
-		return "loading user info";
+		return "";
 	}
 
 	function showImages() {
@@ -50,13 +52,35 @@ export default function TweetCard({ tweet }) {
 			/>
 			<div className="flex flex-col w-full">
 				<div className="flex flex-row items-center">
-					<h1 className="text-lg font-bold px-2">{userInfo.name}</h1>
-					<h1 className="text-md font-semibold text-gray-500">
-						@{userInfo.username}
-					</h1>
-					<div className="text-sm text-gray-500 px-2">
-						<ReactTimeAgo date={tweet.createdAt} locale="en-US" />
-					</div>
+					{!isDetail && (
+						<div className="flex flex-row items-center">
+							<h1 className="text-lg font-bold px-2">
+								{userInfo.name}
+							</h1>
+							<h1 className="text-md font-semibold text-gray-500">
+								@{userInfo.username}
+							</h1>
+						</div>
+					)}
+					{isDetail && (
+						<div>
+							<h1 className="text-lg font-bold px-2">
+								{userInfo.name}
+							</h1>
+							<h1 className="text-sm font-semibold text-gray-500">
+								@{userInfo.username}
+							</h1>
+						</div>
+					)}
+
+					{!isDetail && (
+						<div className="text-sm text-gray-500 px-2">
+							<ReactTimeAgo
+								date={tweet.createdAt}
+								locale="en-US"
+							/>
+						</div>
+					)}
 					<div className="flex-1"></div>
 					<div className="hover:bg-slate-300 rounded-full">
 						<svg
@@ -75,10 +99,28 @@ export default function TweetCard({ tweet }) {
 						</svg>
 					</div>
 				</div>
-				<h1 className="text-base text-slate-500 px-2">
-					{tweet.text}
-					{showImages()}
-				</h1>
+				{!isDetail && (
+					<h1 className="text-base text-slate-500 px-2">
+						<Link to={`/${userInfo?._id}/tweet/${tweet._id}`}>
+							<div>
+								{tweet.text}
+								{showImages()}
+							</div>
+						</Link>
+					</h1>
+				)}
+				{isDetail && (
+					<div>
+						<h1 className="text-base px-2 pt-2">
+							{tweet.text}
+							{showImages()}
+						</h1>
+						<h1 className="text-sm text-slate-500 px-2">
+							post at: {time.toLocaleTimeString()},{" "}
+							{time.toDateString()}{" "}
+						</h1>
+					</div>
+				)}
 				<div className="flex flex-row justify-between pr-44 pt-3 ">
 					{/* comments */}
 					<div className="flex flex-row hover:bg-slate-300 cursor-pointer rounded-full items-center">

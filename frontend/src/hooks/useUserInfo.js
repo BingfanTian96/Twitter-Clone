@@ -8,7 +8,7 @@ export default function useUserInfo(userId) {
 	async function getUserInfo() {
 		await axios.get("/api/users/" + userId).then(function (response) {
 			setUserInfo(response.data);
-			setStatus("authenticated");
+			setStatus("pass");
 		});
 	}
 	useEffect(() => {

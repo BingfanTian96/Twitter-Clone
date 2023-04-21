@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./pages/App";
+import TweetPage from "./pages/Tweet";
 // import LoginPage from "./pages/login";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
@@ -12,8 +13,12 @@ TimeAgo.addDefaultLocale(en);
 
 const router = createBrowserRouter([
 	{
-		path: "/home",
+		path: "/",
 		element: <App />,
+	},
+	{
+		path: "/:userId/tweet/:tweetId",
+		element: <TweetPage />,
 	},
 ]);
 

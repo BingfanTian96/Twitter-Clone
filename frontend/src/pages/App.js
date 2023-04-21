@@ -1,6 +1,6 @@
 import "../css/App.css";
 import SideBar from "../components/sideBar";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TweetPostForm from "../components/tweetPostForm";
 import TweetCard from "../components/tweetCard";
 import TweetHeader from "../components/tweetHeader";
@@ -49,6 +49,8 @@ export default function App() {
 						onPost={() => {
 							getAllTweets();
 						}}
+						placeholder="What's happening"
+						isEdit={false}
 					/>
 				) : null}
 
@@ -56,7 +58,7 @@ export default function App() {
 					{tweets.length > 0 &&
 						tweets.map((post) => (
 							<div key={post._id}>
-								<TweetCard tweet={post} />
+								<TweetCard tweet={post} isDetail={false} />
 							</div>
 						))}
 				</div>

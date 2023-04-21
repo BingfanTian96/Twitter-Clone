@@ -9,7 +9,6 @@ exports.TweetSchema = new Schema(
 		likesCount: { type: Number, default: 0 },
 		commentsCount: { type: Number, default: 0 },
 		transmitsCount: { type: Number, default: 0 },
-		parent: { type: ObjectId, ref: "tweet", default: null },
 		images: { type: [String], default: [] },
 	},
 	{
