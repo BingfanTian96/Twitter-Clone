@@ -25,7 +25,7 @@ export default function TweetEditForm({ curUser, placeholder, tweetId }) {
 			});
 		setText("");
 		setImages([]);
-		let path = "/";
+		let path = "/tweet/" + tweetId;
 		navigate(path);
 	}
 
@@ -67,7 +67,7 @@ export default function TweetEditForm({ curUser, placeholder, tweetId }) {
 					</svg>
 					<div className="mx-auto"></div>
 					<button className="px-5 py-2 bg-blue-500 text-white rounded-full font-bold hover:bg-blue-400">
-						Tweet
+						Edit
 					</button>
 				</div>
 			</div>

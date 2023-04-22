@@ -8,12 +8,13 @@ import axios from "axios";
 import useUserInfo from "../hooks/useUserInfo";
 
 export default function App() {
+	//   ***** todo: implement login for user id *****
+	// hard code a user
+	const userId = "643f4d88a87cdb51ed6ed0c6";
 	// hard code login status
 	const [isLogin, setLogin] = useState(true);
 	const [tweets, setTweets] = useState([]);
-	//   ***** todo: implement login for user id *****
-	// hard code a user
-	const userId = "643df1e3a06589780dda2a68";
+
 	const {
 		userInfo,
 		setUserInfo,
@@ -58,7 +59,11 @@ export default function App() {
 					{tweets.length > 0 &&
 						tweets.map((post) => (
 							<div key={post._id}>
-								<TweetCard tweet={post} isDetail={false} />
+								<TweetCard
+									tweet={post}
+									isDetail={false}
+									currentUserId={userId}
+								/>
 							</div>
 						))}
 				</div>

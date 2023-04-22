@@ -4,11 +4,11 @@ import useUserInfo from "../hooks/useUserInfo";
 import { useState } from "react";
 import ReactTimeAgo from "react-time-ago";
 
-export default function TweetCard({ tweet, isDetail }) {
+export default function TweetCard({ tweet, isDetail, currentUserId }) {
 	const [isLoading, setLoading] = useState(true);
 
 	// const [isLogin, setLogin] = useState(true);
-	const userId = tweet.author;
+	const tweetUserId = tweet.author;
 	// console.log(tweet.author);
 	const time = new Date(tweet.createdAt);
 
@@ -16,7 +16,7 @@ export default function TweetCard({ tweet, isDetail }) {
 		userInfo,
 		setUserInfo,
 		status: userInfoStatus,
-	} = useUserInfo(userId);
+	} = useUserInfo(tweetUserId);
 
 	if (userInfoStatus === "loading") {
 		return "";
@@ -31,12 +31,7 @@ export default function TweetCard({ tweet, isDetail }) {
 				{tweet.images.length > 0 &&
 					tweet.images.map((img) => (
 						<div className="m-1" key={img}>
-							<img
-								src={img}
-								alt="img"
-								style={{ width: "50%" }}
-								// className=" h-0.5"
-							/>
+							<img src={img} alt="img" style={{ width: "50%" }} />
 						</div>
 					))}
 			</div>
@@ -45,32 +40,43 @@ export default function TweetCard({ tweet, isDetail }) {
 
 	return (
 		<div className="flex flex-row p-3  border-b-2">
-			<img
-				src={userInfo.img}
-				alt="user-icon"
-				className="w-12 h-12 object-cover rounded-full"
-			/>
+			<div>
+				{!!userInfo?.img && (
+					<Link to={`/user/` + userInfo._id}>
+						<img
+							src={userInfo.img}
+							alt="user-icon"
+							className="w-12 h-12 object-cover rounded-full"
+						/>
+					</Link>
+				)}
+			</div>
+
 			<div className="flex flex-col w-full">
 				<div className="flex flex-row items-center">
 					{!isDetail && (
-						<div className="flex flex-row items-center">
-							<h1 className="text-lg font-bold px-2">
-								{userInfo.name}
-							</h1>
-							<h1 className="text-md font-semibold text-gray-500">
-								@{userInfo.username}
-							</h1>
-						</div>
+						<Link to={`/user/` + userInfo._id}>
+							<div className="flex flex-row items-center">
+								<h1 className="text-lg font-bold px-2">
+									{userInfo.name}
+								</h1>
+								<h1 className="text-md font-semibold text-gray-500">
+									@{userInfo.username}
+								</h1>
+							</div>
+						</Link>
 					)}
 					{isDetail && (
-						<div>
-							<h1 className="text-lg font-bold px-2">
-								{userInfo.name}
-							</h1>
-							<h1 className="text-sm font-semibold text-gray-500">
-								@{userInfo.username}
-							</h1>
-						</div>
+						<Link to={`/user/` + userInfo._id}>
+							<div>
+								<h1 className="text-lg font-bold px-2">
+									{userInfo.name}
+								</h1>
+								<h1 className="text-sm font-semibold text-gray-500">
+									@{userInfo.username}
+								</h1>
+							</div>
+						</Link>
 					)}
 
 					{!isDetail && (
@@ -101,7 +107,7 @@ export default function TweetCard({ tweet, isDetail }) {
 				</div>
 				{!isDetail && (
 					<h1 className="text-base text-slate-500 px-2">
-						<Link to={`/${userInfo?._id}/tweet/${tweet._id}`}>
+						<Link to={`/tweet/${tweet._id}`}>
 							<div>
 								{tweet.text}
 								{showImages()}

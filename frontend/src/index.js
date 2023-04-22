@@ -8,6 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
+import UserPage from "./pages/User";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -17,8 +18,12 @@ const router = createBrowserRouter([
 		element: <App />,
 	},
 	{
-		path: "/:userId/tweet/:tweetId",
+		path: "/tweet/:tweetId",
 		element: <TweetPage />,
+	},
+	{
+		path: "/user/:userId",
+		element: <UserPage />,
 	},
 ]);
 

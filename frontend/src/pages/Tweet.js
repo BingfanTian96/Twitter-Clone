@@ -4,42 +4,52 @@ import useUserInfo from "../hooks/useUserInfo";
 import SideBar from "../components/sideBar";
 import TweetCard from "../components/tweetCard";
 import TweetPostForm from "../components/tweetPostForm";
-import axios from "axios";
+import TopNavLink from "../components/topNav";
 import TweetEditForm from "../components/tweetEditForm";
 
+import axios from "axios";
+
 export default function TweetPage() {
-	const { userId, tweetId } = useParams();
-	const [isAuthor, setIsAuthor] = useState(false);
-	// hard code
-	const [isLogin, setLogin] = useState(true);
-	const [tweet, setTweet] = useState(null);
-	const [status, setStatus] = useState("loading");
-	const [isEdit, setIsEdit] = useState(false);
-	const navigate = useNavigate();
+	// get userId from login function
 	//   ***** todo: implement login for user id *****
 	// hard code a user
+	const currentUserId = "643f4d88a87cdb51ed6ed0c6";
+	// hard code login status
+	const [isLogin, setLogin] = useState(true);
+	const { tweetId } = useParams();
+	// const [isEdit, setIsEdit] = useState(false);
+	const [editMode, setEditMode] = useState(false);
+	const [tweet, setTweet] = useState(null);
+	const [tweetInfoStatus, setTweetInfoStatus] = useState("loading");
+	const navigate = useNavigate();
 
+	// for current login user info
 	const {
 		userInfo,
 		setUserInfo,
 		status: userInfoStatus,
-	} = useUserInfo(userId);
+	} = useUserInfo(currentUserId);
 
-	async function getTweet() {
-		await axios.get("/api/tweets/" + tweetId).then(function (response) {
+	// get tweet info
+	useEffect(() => {
+		if (!tweetId) {
+			return;
+		}
+		axios.get("/api/tweets/" + tweetId).then((response) => {
 			setTweet(response.data);
-			setStatus("pass");
-			// ask TA about delay check
-			if (userId === response.data.author) {
-				setIsAuthor(true);
-			}
+			setTweetInfoStatus("pass");
 		});
+	}, [tweetId]);
+
+	if (userInfoStatus === "loading" || tweetInfoStatus === "loading") {
+		return "";
 	}
+
+	const isMyTweet = tweet?.author === userInfo?._id;
 
 	// delete current tweet
 	async function deleteTweet() {
 		await axios.delete("/api/tweets/" + tweetId).then(function (response) {
-			setStatus("pass");
 			let path = "/";
 			navigate(path);
 		});
@@ -47,20 +57,12 @@ export default function TweetPage() {
 
 	// navigate to edit page
 	function updateTweet() {
-		setIsEdit(true);
+		setEditMode(true);
 	}
 
 	// cancel the update
 	function cancelUpdate() {
-		setIsEdit(false);
-	}
-
-	useEffect(() => {
-		getTweet();
-	}, [tweetId]);
-
-	if (userInfoStatus === "loading") {
-		return "";
+		setEditMode(false);
 	}
 
 	// http://localhost:3000/tweet/643fa08b70e1182c4f02e300 test url
@@ -72,38 +74,28 @@ export default function TweetPage() {
 			{/* main feed */}
 			<div className="flex-1 bg-white border-x-2 overflow-y-scroll">
 				<div className="px-5 py-2 flex justify-between">
-					<Link to={"/"}>
-						<div className="flex mb-2 cursor-pointer items-center">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth={1.5}
-								stroke="currentColor"
-								className="w-6 h-6 mr-3"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-								/>
-							</svg>
-							<h1 className="font-bold text-lg">Tweet</h1>
-						</div>
-					</Link>
+					<TopNavLink />
 					{/* <div className="flex-l"></div> */}
-					{isAuthor && (
+					{isMyTweet && (
 						<div className="flex">
-							{!isEdit && (
-								<button
-									className=" bg-blue-500 rounded-full w-20 text-white hover:bg-blue-400"
-									onClick={updateTweet}
-								>
-									Edit
-								</button>
+							{!editMode && (
+								<div>
+									<button
+										className=" bg-blue-500 rounded-full w-20 text-white hover:bg-blue-400"
+										onClick={updateTweet}
+									>
+										Edit
+									</button>
+									<button
+										className="bg-red-500 rounded-full w-20 text-white hover:bg-red-400"
+										onClick={deleteTweet}
+									>
+										Delete
+									</button>
+								</div>
 							)}
 
-							{isEdit && (
+							{editMode && (
 								<button
 									className=" bg-slate-500 rounded-full w-20 text-white hover:bg-slate-400"
 									onClick={cancelUpdate}
@@ -111,25 +103,17 @@ export default function TweetPage() {
 									Cancel
 								</button>
 							)}
-							{!isEdit && (
-								<button
-									className="bg-red-500 rounded-full w-20 text-white hover:bg-red-400"
-									onClick={deleteTweet}
-								>
-									Delete
-								</button>
-							)}
 						</div>
 					)}
 				</div>
-				{isEdit && (
+				{editMode && (
 					<TweetEditForm
 						curUser={userInfo}
 						placeholder={tweet.text}
 						tweetId={tweet._id}
 					/>
 				)}
-				{!isEdit && <TweetCard tweet={tweet} isDetail={true} />}
+				{!editMode && <TweetCard tweet={tweet} isDetail={true} />}
 			</div>
 		</div>
 	);

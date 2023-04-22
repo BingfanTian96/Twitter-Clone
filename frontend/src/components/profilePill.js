@@ -5,14 +5,14 @@ export default function ProfilePill({ curUser }) {
 		<div className="w-full hover:bg-slate-200 flex flex-row justify-around items-center rounded-full cursor-pointer p-3">
 			{/* user pic */}
 			<img
-				src={curUser.img}
+				src={curUser?.img}
 				alt="user-icon"
 				className="w-12 rounded-full"
 			/>
 			{/* user info */}
 			<div className="flex flex-col flex-1 px-2">
-				<h1 className="text-lg font-bold">{curUser.name}</h1>
-				<h1 className="text-sm text-gray-600">@{curUser.username}</h1>
+				<h1 className="text-lg font-bold">{curUser?.name}</h1>
+				<h1 className="text-sm text-gray-600">@{curUser?.username}</h1>
 			</div>
 			{/* more button */}
 			<svg
