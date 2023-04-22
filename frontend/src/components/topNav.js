@@ -17,7 +17,7 @@ export default function TopNavLink({ title = "Tweet", url = "/" }) {
 						d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
 					/>
 				</svg>
-				<h1 className="font-bold text-lg">{title}</h1>
+				<h1 className="font-bold text-2xl">{title}</h1>
 			</div>
 		</Link>
 	);

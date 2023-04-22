@@ -13,6 +13,7 @@ exports.UserSchema = new Schema(
 		password: String,
 		name: String,
 		img: String,
+		about: String,
 	},
 	{ timestamps: true, collection: "Twitter-clone-users" }
 );

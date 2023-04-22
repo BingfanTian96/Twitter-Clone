@@ -12,17 +12,18 @@ export default function UserPage() {
 	// get userId from login function
 	//   ***** todo: implement login for user id *****
 	// hard code a user
-	const currentUserId = "643f4d88a87cdb51ed6ed0c6";
+	const currentUserId = "6443522ef0780a89f347dc72";
 	// hard code login status
 	const [isLogin, setLogin] = useState(true);
 	const { userId } = useParams();
-	const [isAuthor, setIsAuthor] = useState(false);
-	const [tweet, setTweet] = useState(null);
+
+	const [tweets, setTweets] = useState([]);
 	const [tweetsStatus, setTweetsStatus] = useState("loading");
+	const [profileStatus, setProfileStatus] = useState("loading");
 	const navigate = useNavigate();
 	const [profileInfo, setProfileInfo] = useState();
 	const [originalUserInfo, setOriginalUserInfo] = useState();
-	const [tweets, setTweets] = useState([]);
+
 	const [editMode, setEditMode] = useState(false);
 
 	// for current login user info
@@ -40,6 +41,7 @@ export default function UserPage() {
 		axios.get("/api/users/" + userId).then((response) => {
 			setProfileInfo(response.data);
 			setOriginalUserInfo(response.data);
+			setProfileStatus("pass");
 		});
 	}, [userId]);
 
@@ -49,11 +51,10 @@ export default function UserPage() {
 			return;
 		}
 		axios.get("/api/tweets/userId/" + profileInfo._id).then((response) => {
-			setTweets(response.data.posts);
+			setTweets(response.data);
+			setTweetsStatus("pass");
 		});
 	}, [profileInfo]);
-
-	const isMyProfile = profileInfo?._id === userInfo?._id;
 
 	// delete current tweet
 	// async function deleteTweet() {
@@ -74,9 +75,52 @@ export default function UserPage() {
 	// 	setIsEdit(false);
 	// }
 
-	if (userInfoStatus === "loading") {
+	async function updateProfile(e) {
+		e.preventDefault();
+		// await axios
+		// 	.post("/api/users/edit", {
+		// 		_id: profileInfo?._id,
+		// 		author: curUser._id,
+		// 		text: text,
+		// 		images: images,
+		// 	})
+		// 	.then(function (response) {
+		// 		let path = "/";
+		// 		navigate(path);
+		// 	});
+		// setText("");
+		// setImages([]);
+		// let path = "/tweet/" + tweetId;
+		// navigate(path);
+		setEditMode(false);
+	}
+
+	async function updateProfile() {
+		await axios.put("/api/profile", {
+			profileInfo,
+		});
+		setEditMode(false);
+	}
+
+	function cancel() {
+		// setProfileInfo(prev => {
+		//   const {bio,name,username} = originalUserInfo;
+		//   return {...prev,bio,name,username};
+		// });
+		setEditMode(false);
+	}
+
+	if (
+		userInfoStatus === "loading" ||
+		profileStatus === "loading" ||
+		tweetsStatus === "loading"
+	) {
 		return "";
 	}
+
+	const isMyProfile = profileInfo?._id === userInfo?._id;
+	console.log(isMyProfile);
+	const time = new Date(profileInfo.createdAt);
 
 	return (
 		<div className="h-screen bg-slate-400 flex flex-row">
@@ -84,7 +128,129 @@ export default function UserPage() {
 			<SideBar curUser={userInfo} isLogin={isLogin} />
 			{/* main feed */}
 			<div className="flex-1 bg-white border-x-2 overflow-y-scroll">
-				<TopNavLink title={userInfo.name} />
+				<div className="px-5 pt-2">
+					<TopNavLink title={profileInfo.name} />
+				</div>
+
+				<div className="flex justify-between items-end">
+					<div className="ml-5 relative">
+						<div className=" border-4 rounded-full border-slate-300 overflow-hidden">
+							<img
+								src={profileInfo.img}
+								alt="user-icon"
+								className="w-24 h-24 object-cover rounded-full"
+							/>
+						</div>
+					</div>
+					<div className="p-2">
+						{isMyProfile && (
+							<div>
+								{!editMode && (
+									<button
+										onClick={() => setEditMode(true)}
+										className="bg-blue-500 text-white py-2 px-5 rounded-full"
+									>
+										Edit profile
+									</button>
+								)}
+								{editMode && (
+									<div>
+										<button
+											onClick={() => cancel()}
+											className="bg-slate-400 text-black py-2 px-5 rounded-full mr-2 hover:bg-slate-300"
+										>
+											Cancel
+										</button>
+										<button
+											onClick={() => updateProfile()}
+											className="bg-blue-500 text-white py-2 px-5 rounded-full hover:bg-blue-400"
+										>
+											Save profile
+										</button>
+									</div>
+								)}
+							</div>
+						)}
+					</div>
+				</div>
+				<div className="px-5 mt-2 border-b-2">
+					{!editMode && (
+						<h1 className="font-bold text-2xl leading-5 pt-3">
+							{profileInfo.name}
+						</h1>
+					)}
+					{editMode && (
+						<div>
+							<input
+								type="text"
+								value={profileInfo.name}
+								onChange={(ev) =>
+									setProfileInfo((prev) => ({
+										...prev,
+										name: ev.target.value,
+									}))
+								}
+								className="bg-slate-300 p-2 mb-2 rounded-full"
+							/>
+						</div>
+					)}
+					{!editMode && (
+						<h2 className="text-slate-400 text-sm pt-3">
+							@{profileInfo.username}
+						</h2>
+					)}
+					{editMode && (
+						<div>
+							<input
+								type="text"
+								value={profileInfo.username}
+								onChange={(ev) =>
+									setProfileInfo((prev) => ({
+										...prev,
+										username: ev.target.value,
+									}))
+								}
+								className="bg-slate-300 p-2 mb-2 rounded-full"
+							/>
+						</div>
+					)}
+					{!editMode && (
+						<h2 className=" text-md pt-3">{profileInfo.about}</h2>
+					)}
+					{editMode && (
+						<div>
+							<input
+								type="text"
+								value={profileInfo.about}
+								onChange={(ev) =>
+									setProfileInfo((prev) => ({
+										...prev,
+										about: ev.target.value,
+									}))
+								}
+								className="bg-slate-300 p-2 mb-2 rounded-full"
+							/>
+						</div>
+					)}
+					{!editMode && (
+						<div className="text-slate-400 text-sm mt-2 mb-2 pt-3">
+							Create at: {time.toLocaleTimeString()},{" "}
+							{time.toDateString()}{" "}
+						</div>
+					)}
+				</div>
+				<div>
+					{tweets.length > 0 &&
+						tweets.map((post) => (
+							<div key={post._id}>
+								<TweetCard
+									tweet={post}
+									isDetail={false}
+									currentUserId={userId}
+								/>
+							</div>
+						))}
+				</div>
 			</div>
 		</div>
 	);

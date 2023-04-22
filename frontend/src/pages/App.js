@@ -10,7 +10,7 @@ import useUserInfo from "../hooks/useUserInfo";
 export default function App() {
 	//   ***** todo: implement login for user id *****
 	// hard code a user
-	const userId = "643f4d88a87cdb51ed6ed0c6";
+	const userId = "6443522ef0780a89f347dc72";
 	// hard code login status
 	const [isLogin, setLogin] = useState(true);
 	const [tweets, setTweets] = useState([]);

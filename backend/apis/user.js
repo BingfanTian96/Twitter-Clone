@@ -18,12 +18,24 @@ router.get("/:id", async function (req, res) {
 	return res.send(userData);
 });
 
-router.post("/", async function (request, response) {
-	const body = request.body;
+router.post("/", async function (req, res) {
+	const body = req.body;
 
 	const newUserResponse = await UserModel.createUser(body);
 
-	response.send("Created new user!");
+	res.send("Created new user!");
+});
+
+router.post("/edit", async function (req, res) {
+	const newUser = req.body;
+
+	UserModel.updateUser(newUser)
+		.then(function (dbResponse) {
+			res.send("user Successfully Updated");
+		})
+		.catch(function (error) {
+			res.status(500).send(error);
+		});
 });
 
 router.post("/login", async function (req, res) {
