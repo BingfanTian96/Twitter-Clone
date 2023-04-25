@@ -1,11 +1,9 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useUserInfo from "../hooks/useUserInfo";
 import SideBar from "../components/sideBar";
 import TweetCard from "../components/tweetCard";
-import TweetPostForm from "../components/tweetPostForm";
 import axios from "axios";
-import TweetEditForm from "../components/tweetEditForm";
 import TopNavLink from "../components/topNav";
 
 export default function UserPage() {
@@ -92,21 +90,28 @@ export default function UserPage() {
 		// setImages([]);
 		// let path = "/tweet/" + tweetId;
 		// navigate(path);
+		console.log({ profileInfo });
 		setEditMode(false);
 	}
 
 	async function updateProfile() {
-		await axios.put("/api/profile", {
-			profileInfo,
+		await axios.put("/api/users/edit", {
+			_id: profileInfo._id,
+			name: profileInfo.name,
+			username: profileInfo.username,
+			about: profileInfo.about,
+			img: profileInfo.img,
 		});
+
 		setEditMode(false);
+		window.location.reload(true);
 	}
 
 	function cancel() {
-		// setProfileInfo(prev => {
-		//   const {bio,name,username} = originalUserInfo;
-		//   return {...prev,bio,name,username};
-		// });
+		setProfileInfo((prev) => {
+			const { about, name, username } = originalUserInfo;
+			return { ...prev, about, name, username };
+		});
 		setEditMode(false);
 	}
 
@@ -119,7 +124,6 @@ export default function UserPage() {
 	}
 
 	const isMyProfile = profileInfo?._id === userInfo?._id;
-	console.log(isMyProfile);
 	const time = new Date(profileInfo.createdAt);
 
 	return (
@@ -226,6 +230,21 @@ export default function UserPage() {
 									setProfileInfo((prev) => ({
 										...prev,
 										about: ev.target.value,
+									}))
+								}
+								className="bg-slate-300 p-2 mb-2 rounded-full"
+							/>
+						</div>
+					)}
+					{editMode && (
+						<div>
+							<input
+								type="text"
+								value={profileInfo.img}
+								onChange={(ev) =>
+									setProfileInfo((prev) => ({
+										...prev,
+										img: ev.target.value,
 									}))
 								}
 								className="bg-slate-300 p-2 mb-2 rounded-full"

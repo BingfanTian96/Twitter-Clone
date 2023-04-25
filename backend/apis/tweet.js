@@ -63,7 +63,7 @@ router.post("/", function (req, res) {
 		});
 });
 
-router.post("/edit", function (req, res) {
+router.put("/edit", function (req, res) {
 	const newTweet = req.body;
 	TweetModel.updateTweet(newTweet)
 		.then(function (dbResponse) {

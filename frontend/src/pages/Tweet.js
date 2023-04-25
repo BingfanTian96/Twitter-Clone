@@ -79,20 +79,20 @@ export default function TweetPage() {
 					{isMyTweet && (
 						<div className="flex">
 							{!editMode && (
-								<div>
-									<button
-										className=" bg-blue-500 rounded-full w-20 text-white hover:bg-blue-400"
-										onClick={updateTweet}
-									>
-										Edit
-									</button>
-									<button
-										className="bg-red-500 rounded-full w-20 text-white hover:bg-red-400"
-										onClick={deleteTweet}
-									>
-										Delete
-									</button>
-								</div>
+								<button
+									className=" bg-blue-500 rounded-full w-20 text-white hover:bg-blue-400"
+									onClick={updateTweet}
+								>
+									Edit
+								</button>
+							)}
+							{!editMode && (
+								<button
+									className="bg-red-500 rounded-full w-20 text-white hover:bg-red-400"
+									onClick={deleteTweet}
+								>
+									Delete
+								</button>
 							)}
 
 							{editMode && (

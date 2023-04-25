@@ -26,7 +26,7 @@ router.post("/", async function (req, res) {
 	res.send("Created new user!");
 });
 
-router.post("/edit", async function (req, res) {
+router.put("/edit", async function (req, res) {
 	const newUser = req.body;
 
 	UserModel.updateUser(newUser)

@@ -10,7 +10,7 @@ export default function SideBar({ isLogin, curUser }) {
 			<img
 				src="https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png"
 				alt="twitter-icon"
-				className="w-10 pb-5 pt-3"
+				className=" w-12 pb-5 pt-3"
 			/>
 
 			{/* To home page */}
