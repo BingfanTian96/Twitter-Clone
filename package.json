@@ -22,7 +22,7 @@
     "bugs": {
       "url": "https://github.com/Yiranluc/Twitter-Clone/issues"
     },
-    "homepage": "https://github.com/Yiranluc/Twitter-Clone#readme",
+    "homepage": ".",
     "dependencies": {
         "bcryptjs": "^2.4.3",
         "connect-mongodb-session": "^3.1.1",
