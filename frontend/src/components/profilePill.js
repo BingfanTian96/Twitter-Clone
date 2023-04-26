@@ -1,4 +1,5 @@
 import "../css/App.css";
+import React from 'react';
 
 export default function ProfilePill({ curUser }) {
 	return (
@@ -11,7 +12,7 @@ export default function ProfilePill({ curUser }) {
 			/>
 			{/* user info */}
 			<div className="flex flex-col flex-1 px-2">
-				<h1 className="text-lg font-bold">{curUser?.name}</h1>
+				{/* <h1 className="text-lg font-bold">{curUser?.name}</h1> */}
 				<h1 className="text-sm text-gray-600">@{curUser?.username}</h1>
 			</div>
 			{/* more button */}

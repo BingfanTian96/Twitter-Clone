@@ -7,40 +7,33 @@ import axios from "axios";
 import TopNavLink from "../components/topNav";
 
 export default function UserPage() {
-	// get userId from login function
-	//   ***** todo: implement login for user id *****
-	// hard code a user
-	const currentUserId = "6443522ef0780a89f347dc72";
-	// hard code login status
-	const [isLogin, setLogin] = useState(true);
-	const { userId } = useParams();
 
+	const { userId } = useParams();
 	const [tweets, setTweets] = useState([]);
 	const [tweetsStatus, setTweetsStatus] = useState("loading");
 	const [profileStatus, setProfileStatus] = useState("loading");
-	const navigate = useNavigate();
 	const [profileInfo, setProfileInfo] = useState();
+	// Note that the original user info stands for the info of the logged in user.
 	const [originalUserInfo, setOriginalUserInfo] = useState();
-
 	const [editMode, setEditMode] = useState(false);
 
 	// for current login user info
 	const {
-		userInfo,
-		setUserInfo,
-		status: userInfoStatus,
-	} = useUserInfo(currentUserId);
+		isLoggedIn, userInfo, setUserInfo, status:userInfoStatus
+	} = useUserInfo();
 
 	// get user page profile info
 	useEffect(() => {
+		console.log("user id on this page is: " + userId);
 		if (!userId) {
 			return;
 		}
+		console.log("user id on this page is: " + userId);
 		axios.get("/api/users/" + userId).then((response) => {
 			setProfileInfo(response.data);
 			setOriginalUserInfo(response.data);
 			setProfileStatus("pass");
-		});
+		}).then(() => {console.log("I have passed");});
 	}, [userId]);
 
 	// get all tweets post by this user
@@ -123,13 +116,13 @@ export default function UserPage() {
 		return "";
 	}
 
-	const isMyProfile = profileInfo?._id === userInfo?._id;
+	const isMyProfile = userId === userInfo?._id;
 	const time = new Date(profileInfo.createdAt);
 
 	return (
 		<div className="h-screen bg-slate-400 flex flex-row">
 			{/* sidebar */}
-			<SideBar curUser={userInfo} isLogin={isLogin} />
+			<SideBar curUser={userInfo} isLogin={isLoggedIn} />
 			{/* main feed */}
 			<div className="flex-1 bg-white border-x-2 overflow-y-scroll">
 				<div className="px-5 pt-2">

@@ -1,12 +1,12 @@
 const express = require("express");
-const users = require("./apis/user");
 const tweets = require("./apis/tweet");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
-const cookieParser = require("cookie-parser");
-
+const users = require("./apis/user");
+// const cookieParser = require("cookie-parser");
+// const authHelper = require('./middlewares/authHelper');
 const mongoDBEndpoint =
 	"mongodb+srv://admin:CS5610@twitter-clone.qzlzgnp.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(mongoDBEndpoint, { useNewUrlParser: true });
@@ -17,7 +17,21 @@ db.on("error", console.error.bind(console, "Error connecting to MongoDB:"));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+// app.use(cookieParser());
+
+const session = require('express-session')
+
+// const store = new MongoDBStore({
+// 	uri: 'mongodb://localhost:27017/myapp',
+// 	collection: 'sessions'
+// });
+  
+app.use(session({
+	secret: 'secret-key',
+	resave: false,
+	saveUninitialized: false,
+	cookie: { secure: false }
+  }));
 
 app.use("/api/users/", users);
 app.use("/api/tweets/", tweets);
@@ -25,6 +39,7 @@ app.use("/api/tweets/", tweets);
 let frontend_dir = path.join(__dirname, "..", "frontend");
 
 app.use(express.static(frontend_dir));
+
 app.get("*", function (req, res) {
 	console.log("received request");
 	res.sendFile(path.join(frontend_dir, "index.html"));

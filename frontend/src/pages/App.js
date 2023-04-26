@@ -8,18 +8,12 @@ import axios from "axios";
 import useUserInfo from "../hooks/useUserInfo";
 
 export default function App() {
-	//   ***** todo: implement login for user id *****
-	// hard code a user
-	const userId = "6443522ef0780a89f347dc72";
-	// hard code login status
-	const [isLogin, setLogin] = useState(true);
+	
 	const [tweets, setTweets] = useState([]);
 
 	const {
-		userInfo,
-		setUserInfo,
-		status: userInfoStatus,
-	} = useUserInfo(userId);
+		isLoggedIn, userInfo, setUserInfo, status:userInfoStatus
+	} = useUserInfo();
 
 	// get all posts
 	async function getAllTweets() {
@@ -31,20 +25,19 @@ export default function App() {
 		getAllTweets();
 	}, []);
 
-	// console.log(tweet);
 	if (userInfoStatus === "loading") {
-		return "loading user info";
+		return "loading the page";
 	}
 
 	return (
 		<div className="h-screen bg-slate-400 flex flex-row">
 			{/* sidebar */}
-			<SideBar curUser={userInfo} isLogin={isLogin} />
+			<SideBar curUser={userInfo} isLogin={isLoggedIn} />
 			{/* main feed */}
 			<div className="flex-1 bg-white border-x-2 overflow-y-scroll">
 				<TweetHeader />
 
-				{isLogin ? (
+				{isLoggedIn ? (
 					<TweetPostForm
 						curUser={userInfo}
 						onPost={() => {
@@ -62,7 +55,7 @@ export default function App() {
 								<TweetCard
 									tweet={post}
 									isDetail={false}
-									currentUserId={userId}
+									currentUserId={post.author}
 								/>
 							</div>
 						))}

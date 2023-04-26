@@ -6,16 +6,10 @@ import TweetCard from "../components/tweetCard";
 import TweetPostForm from "../components/tweetPostForm";
 import TopNavLink from "../components/topNav";
 import TweetEditForm from "../components/tweetEditForm";
-
 import axios from "axios";
 
 export default function TweetPage() {
-	// get userId from login function
-	//   ***** todo: implement login for user id *****
-	// hard code a user
-	const currentUserId = "6443522ef0780a89f347dc72";
-	// hard code login status
-	const [isLogin, setLogin] = useState(true);
+
 	const { tweetId } = useParams();
 	// const [isEdit, setIsEdit] = useState(false);
 	const [editMode, setEditMode] = useState(false);
@@ -25,16 +19,16 @@ export default function TweetPage() {
 
 	// for current login user info
 	const {
-		userInfo,
-		setUserInfo,
-		status: userInfoStatus,
-	} = useUserInfo(currentUserId);
+		isLoggedIn, userInfo, setUserInfo, status:userInfoStatus
+	} = useUserInfo();
+
 
 	// get tweet info
 	useEffect(() => {
 		if (!tweetId) {
 			return;
 		}
+		console.log("tweet id is: " + tweetId);
 		axios.get("/api/tweets/" + tweetId).then((response) => {
 			setTweet(response.data);
 			setTweetInfoStatus("pass");
@@ -70,7 +64,7 @@ export default function TweetPage() {
 	return (
 		<div className="h-screen bg-slate-400 flex flex-row">
 			{/* sidebar */}
-			<SideBar curUser={userInfo} isLogin={isLogin} />
+			<SideBar curUser={userInfo} isLogin={isLoggedIn} />
 			{/* main feed */}
 			<div className="flex-1 bg-white border-x-2 overflow-y-scroll">
 				<div className="px-5 py-2 flex justify-between">

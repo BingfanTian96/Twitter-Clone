@@ -9,7 +9,11 @@ function createUser(user) {
 }
 
 function findUserByUsername(username) {
-	return UserModel.find({ username: username }).exec();
+	return UserModel.findOne({ username: username }).exec();
+}
+
+function findUserByEmail(email) {
+	return UserModel.find({ email: email }).exec();
 }
 
 function findUserById(id) {
@@ -24,5 +28,6 @@ module.exports = {
 	createUser,
 	findUserByUsername,
 	findUserById,
+	findUserByEmail,
 	updateUser,
 };

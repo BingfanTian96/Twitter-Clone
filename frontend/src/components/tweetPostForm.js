@@ -7,7 +7,6 @@ export default function TweetPostForm({ curUser, onPost }) {
 	const [images, setImages] = useState([]);
 	const [imgPost, setImgPost] = useState(false);
 	const [value, setValue] = useState("");
-	const userId = curUser._id;
 
 	async function onPostSubmit(e) {
 		e.preventDefault();
@@ -15,16 +14,20 @@ export default function TweetPostForm({ curUser, onPost }) {
 			// pop some message here?
 			return;
 		}
-		await axios.post("/api/tweets/", {
-			author: curUser._id,
-			text: text,
-			images: images,
-		});
-		setText("");
-		setValue("");
-		setImages([]);
-		if (onPost) {
-			onPost();
+		
+		if(curUser) {
+			console.log("is the new post having author id: " + curUser._id);
+			await axios.post("/api/tweets/", {
+				author: curUser._id,
+				text: text,
+				images: images,
+			});
+			setText("");
+			setValue("");
+			setImages([]);
+			if (onPost) {
+				onPost();
+			}
 		}
 	}
 
@@ -40,11 +43,12 @@ export default function TweetPostForm({ curUser, onPost }) {
 			className="flex flex-row p-3 w-full border-b-2"
 			onSubmit={onPostSubmit}
 		>
-			<img
+			{ curUser ? (<img
 				src={curUser.img}
 				alt="user-icon"
 				className="w-12 h-12 object-cover rounded-full"
-			/>
+				/>) : null
+			}	
 
 			<div className="flex flex-col px-3 w-full">
 				<textarea

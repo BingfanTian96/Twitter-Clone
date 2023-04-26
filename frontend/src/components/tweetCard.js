@@ -1,22 +1,33 @@
 import { Link } from "react-router-dom";
 import "../css/App.css";
-import useUserInfo from "../hooks/useUserInfo";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactTimeAgo from "react-time-ago";
+import axios from "axios";
 
 export default function TweetCard({ tweet, isDetail, currentUserId }) {
 	const [isLoading, setLoading] = useState(true);
-
-	// const [isLogin, setLogin] = useState(true);
 	const tweetUserId = tweet.author;
 	// console.log(tweet.author);
 	const time = new Date(tweet.createdAt);
+	const [userInfo, setUserInfo] = useState(null);
+	const [userInfoStatus, setUserInfoStatus] = useState("loading");
 
-	const {
-		userInfo,
-		setUserInfo,
-		status: userInfoStatus,
-	} = useUserInfo(tweetUserId);
+	useEffect(() => {
+		console.log("The auto of the tweet: " + tweetUserId);
+		console.log("The auto2 of the tweet: " + currentUserId);
+		axios.get('/api/users/'+ tweetUserId,{
+			withCredentials: true
+		})
+		.then(res => {
+			setUserInfo(res.data);
+			setUserInfoStatus("pass");
+		})
+		.catch(err => {
+			console.log(err);
+		});
+		
+	}, []);
+
 
 	if (userInfoStatus === "loading") {
 		return "";
