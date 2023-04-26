@@ -23,7 +23,7 @@ export default function TweetPostForm({ curUser, onPost }) {
 				author: curUser._id,
 				text: text,
 				images: images,
-			});
+			}, {withCredentials: true});
 			setText("");
 			setValue("");
 			setImages([]);

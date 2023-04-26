@@ -7,14 +7,15 @@ const userDB = [];
 
 router.put("/edit", async function (req, res) {
 	const newUser = req.body;
-
-	UserModel.updateUser(newUser)
-		.then(function (dbResponse) {
-			res.send("user Successfully Updated");
-		})
-		.catch(function (error) {
-			res.status(500).send(error);
-		});
+	if(newUser.username === req.session.user) {
+		UserModel.updateUser(newUser)
+			.then(function (dbResponse) {
+				res.send("user Successfully Updated");
+			})
+			.catch(function (error) {
+				res.status(500).send(error);
+			});
+	} else return res.status(401).send("You are not authorized to edit this user's profile");
 });
 
 router.get("/", function (request, response) {
@@ -22,7 +23,6 @@ router.get("/", function (request, response) {
 });
 
 router.get("/isLoggedIn", function (req, res) {
-	console.log("is LoggedIn:" + req.session.user);
 	if (req.session.user) {
 		// user is logged in, fetch user data and send it back
 		UserModel.findUserByUsername(req.session.user)
@@ -96,16 +96,18 @@ router.post("/signup", async function (req, res) {
 });
 
 router.post("/logOut", async function (req, res) {
-	req.session.destroy(err => {
-		if (err) {
-			console.error(err);
-			res.status(500).send('Internal server error');
-		} else {
-			// Clear the session cookie from the client-side
-			res.clearCookie('connect.sid', { path: '/' });
-			res.status(200).send('Logout successful');
-		}
-  	});
+	if(req.body.username === req.session.user) {
+		req.session.destroy(err => {
+			if (err) {
+				console.error(err);
+				return res.status(500).send('Internal server error');
+			} else {
+				// Clear the session cookie from the client-side
+				res.clearCookie('connect.sid', { path: '/' });
+				return res.status(200).send('Logout successful');
+			}
+		});
+	} else return res.status(401).send("You are not authorized to log out. Please log in first."); 
 });
 
 module.exports = router;

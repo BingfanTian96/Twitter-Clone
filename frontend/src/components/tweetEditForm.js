@@ -23,7 +23,7 @@ export default function TweetEditForm({ curUser, placeholder, tweetId }) {
 				author: curUser._id,
 				text: text,
 				images: images,
-			})
+			}, {withCredentials: true})
 			.then(function (response) {
 				let path = "/";
 				navigate(path);

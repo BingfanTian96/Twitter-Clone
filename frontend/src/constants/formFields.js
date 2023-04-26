@@ -7,7 +7,7 @@ const loginFields=[
         type:"text",
         autoComplete:"username",
         isRequired:true,
-        placeholder:"Username (you can use 'user1' directly)"   
+        placeholder:"Username (you can use 'Lucy' directly)"   
     },
     {
         labelText:"Password",
@@ -68,9 +68,9 @@ const signupFields=[
         id:"name",
         name:"name",
         type:"text",
-        autoComplete:"Lucy",
+        autoComplete:"Test Account",
         isRequired:false,
-        placeholder:"Name (You can use 'Lucy')"   
+        placeholder:"Name (You can use 'Test')"   
     },
     {
         labelText:"Avatar",
@@ -80,7 +80,7 @@ const signupFields=[
         type:"text",
         autoComplete:"https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png",
         isRequired: true,
-        placeholder:"Avatar (You can use 'https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png')"   
+        placeholder:"Avatar e.g. https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png"   
     }
 ]
 

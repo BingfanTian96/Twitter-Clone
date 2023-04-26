@@ -43,7 +43,7 @@ export default function TweetPage() {
 
 	// delete current tweet
 	async function deleteTweet() {
-		await axios.delete("/api/tweets/" + tweetId).then(function (response) {
+		await axios.delete("/api/tweets/" + tweetId, {withCredentials: true}).then(function (response) {
 			let path = "/";
 			navigate(path);
 		});

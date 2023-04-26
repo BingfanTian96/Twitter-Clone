@@ -61,6 +61,8 @@ export default function UserPage() {
 			username: profileInfo.username,
 			about: profileInfo.about,
 			img: profileInfo.img,
+		}, {
+			withCredentials: true,
 		});
 
 		setEditMode(false);

@@ -7,7 +7,11 @@ import axios from "axios";
 export default function SideBar({ isLogin, curUser }) {
 	async function logOut() {
 		await axios
-			.post("/api/users/logOut", {
+			.post("/api/users/logOut", 
+			{
+				username: curUser?.username,
+			},
+			{
 				withCredentials: true,
 			})
 			.then((res) => {})
