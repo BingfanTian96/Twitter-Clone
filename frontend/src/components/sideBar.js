@@ -2,20 +2,18 @@ import "../css/App.css";
 import ProfilePill from "./profilePill";
 import MenuItem from "./menuItem";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function SideBar({ isLogin, curUser }) {
-	const navigate = useNavigate();
 	async function logOut() {
-		await axios.post('/api/users/logOut',{
-			withCredentials: true
-		})
-		.then(res => {
-		})
-		.catch(err => {
-			console.log(err);
-		});
+		await axios
+			.post("/api/users/logOut", {
+				withCredentials: true,
+			})
+			.then((res) => {})
+			.catch((err) => {
+				console.log(err);
+			});
 		window.location.reload();
 	}
 
@@ -52,7 +50,7 @@ export default function SideBar({ isLogin, curUser }) {
 			</Link>
 
 			{/* To profile page */}
-			{(isLogin && curUser)? (
+			{isLogin && curUser ? (
 				<Link to={"/user/" + curUser._id}>
 					<MenuItem
 						icon={
@@ -153,7 +151,11 @@ export default function SideBar({ isLogin, curUser }) {
 
 			<div className="flex-1"></div>
 			{/* To profile page */}
-			{isLogin ? <ProfilePill curUser={curUser} /> : null}
+			{isLogin ? (
+				<Link to={"/user/" + curUser._id}>
+					<ProfilePill curUser={curUser} />
+				</Link>
+			) : null}
 		</div>
 	);
 }

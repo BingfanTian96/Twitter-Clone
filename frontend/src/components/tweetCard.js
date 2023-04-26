@@ -5,9 +5,7 @@ import ReactTimeAgo from "react-time-ago";
 import axios from "axios";
 
 export default function TweetCard({ tweet, isDetail, currentUserId }) {
-	const [isLoading, setLoading] = useState(true);
 	const tweetUserId = tweet.author;
-	// console.log(tweet.author);
 	const time = new Date(tweet.createdAt);
 	const [userInfo, setUserInfo] = useState(null);
 	const [userInfoStatus, setUserInfoStatus] = useState("loading");
@@ -15,19 +13,18 @@ export default function TweetCard({ tweet, isDetail, currentUserId }) {
 	useEffect(() => {
 		console.log("The auto of the tweet: " + tweetUserId);
 		console.log("The auto2 of the tweet: " + currentUserId);
-		axios.get('/api/users/'+ tweetUserId,{
-			withCredentials: true
-		})
-		.then(res => {
-			setUserInfo(res.data);
-			setUserInfoStatus("pass");
-		})
-		.catch(err => {
-			console.log(err);
-		});
-		
+		axios
+			.get("/api/users/" + tweetUserId, {
+				withCredentials: true,
+			})
+			.then((res) => {
+				setUserInfo(res.data);
+				setUserInfoStatus("pass");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}, []);
-
 
 	if (userInfoStatus === "loading") {
 		return "";
@@ -89,7 +86,6 @@ export default function TweetCard({ tweet, isDetail, currentUserId }) {
 							</div>
 						</Link>
 					)}
-
 					{!isDetail && (
 						<div className="text-sm text-gray-500 px-2">
 							<ReactTimeAgo
@@ -117,21 +113,17 @@ export default function TweetCard({ tweet, isDetail, currentUserId }) {
 					</div>
 				</div>
 				{!isDetail && (
-					<h1 className="text-base text-slate-500 px-2">
+					<h1 className="text-base pt-2 px-2">
 						<Link to={`/tweet/${tweet._id}`}>
-							<div>
-								{tweet.text}
-								{showImages()}
-							</div>
+							<div>{tweet.text}</div>
+							<div>{showImages()}</div>
 						</Link>
 					</h1>
 				)}
 				{isDetail && (
 					<div>
-						<h1 className="text-base px-2 pt-2">
-							{tweet.text}
-							{showImages()}
-						</h1>
+						<h1 className="text-base px-2 pt-2">{tweet.text}</h1>
+						<div>{showImages()}</div>
 						<h1 className="text-sm text-slate-500 px-2">
 							post at: {time.toLocaleTimeString()},{" "}
 							{time.toDateString()}{" "}

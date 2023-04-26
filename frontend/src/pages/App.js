@@ -8,11 +8,13 @@ import axios from "axios";
 import useUserInfo from "../hooks/useUserInfo";
 
 export default function App() {
-	
 	const [tweets, setTweets] = useState([]);
 
 	const {
-		isLoggedIn, userInfo, setUserInfo, status:userInfoStatus
+		isLoggedIn,
+		userInfo,
+		setUserInfo,
+		status: userInfoStatus,
 	} = useUserInfo();
 
 	// get all posts
@@ -36,7 +38,7 @@ export default function App() {
 			{/* main feed */}
 			<div className="flex-1 bg-white border-x-2 overflow-y-scroll">
 				<TweetHeader />
-
+				{/* tweet post form if login */}
 				{isLoggedIn ? (
 					<TweetPostForm
 						curUser={userInfo}
@@ -47,7 +49,7 @@ export default function App() {
 						isEdit={false}
 					/>
 				) : null}
-
+				{/* tweetcard for all tweets */}
 				<div>
 					{tweets.length > 0 &&
 						tweets.map((post) => (

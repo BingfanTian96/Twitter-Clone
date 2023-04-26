@@ -1,15 +1,13 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useUserInfo from "../hooks/useUserInfo";
 import SideBar from "../components/sideBar";
 import TweetCard from "../components/tweetCard";
-import TweetPostForm from "../components/tweetPostForm";
 import TopNavLink from "../components/topNav";
 import TweetEditForm from "../components/tweetEditForm";
 import axios from "axios";
 
 export default function TweetPage() {
-
 	const { tweetId } = useParams();
 	// const [isEdit, setIsEdit] = useState(false);
 	const [editMode, setEditMode] = useState(false);
@@ -19,9 +17,11 @@ export default function TweetPage() {
 
 	// for current login user info
 	const {
-		isLoggedIn, userInfo, setUserInfo, status:userInfoStatus
+		isLoggedIn,
+		userInfo,
+		setUserInfo,
+		status: userInfoStatus,
 	} = useUserInfo();
-
 
 	// get tweet info
 	useEffect(() => {

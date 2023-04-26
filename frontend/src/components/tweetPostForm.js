@@ -7,15 +7,17 @@ export default function TweetPostForm({ curUser, onPost }) {
 	const [images, setImages] = useState([]);
 	const [imgPost, setImgPost] = useState(false);
 	const [value, setValue] = useState("");
+	const [hiding, setHiding] = useState(true);
 
 	async function onPostSubmit(e) {
 		e.preventDefault();
 		if (text === "" && images.length === 0) {
 			// pop some message here?
+			setHiding(false);
 			return;
 		}
-		
-		if(curUser) {
+
+		if (curUser) {
 			console.log("is the new post having author id: " + curUser._id);
 			await axios.post("/api/tweets/", {
 				author: curUser._id,
@@ -25,12 +27,13 @@ export default function TweetPostForm({ curUser, onPost }) {
 			setText("");
 			setValue("");
 			setImages([]);
+			setHiding(true);
 			if (onPost) {
 				onPost();
 			}
 		}
 	}
-
+	// https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png
 	function addImg() {
 		images.push(value);
 		setValue("");
@@ -43,14 +46,20 @@ export default function TweetPostForm({ curUser, onPost }) {
 			className="flex flex-row p-3 w-full border-b-2"
 			onSubmit={onPostSubmit}
 		>
-			{ curUser ? (<img
-				src={curUser.img}
-				alt="user-icon"
-				className="w-12 h-12 object-cover rounded-full"
-				/>) : null
-			}	
+			{curUser ? (
+				<img
+					src={curUser.img}
+					alt="user-icon"
+					className="w-12 h-12 object-cover rounded-full"
+				/>
+			) : null}
 
 			<div className="flex flex-col px-3 w-full">
+				{!hiding && (
+					<div className=" text-red-500">
+						You can't post a tweet with empty text and empty images
+					</div>
+				)}
 				<textarea
 					type="text"
 					className="bg-transparent focus:ring-0 outline-none text-2xl h-20"

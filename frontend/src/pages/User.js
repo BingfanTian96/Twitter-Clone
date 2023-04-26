@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useUserInfo from "../hooks/useUserInfo";
 import SideBar from "../components/sideBar";
@@ -7,7 +7,6 @@ import axios from "axios";
 import TopNavLink from "../components/topNav";
 
 export default function UserPage() {
-
 	const { userId } = useParams();
 	const [tweets, setTweets] = useState([]);
 	const [tweetsStatus, setTweetsStatus] = useState("loading");
@@ -19,7 +18,10 @@ export default function UserPage() {
 
 	// for current login user info
 	const {
-		isLoggedIn, userInfo, setUserInfo, status:userInfoStatus
+		isLoggedIn,
+		userInfo,
+		setUserInfo,
+		status: userInfoStatus,
 	} = useUserInfo();
 
 	// get user page profile info
@@ -29,11 +31,16 @@ export default function UserPage() {
 			return;
 		}
 		console.log("user id on this page is: " + userId);
-		axios.get("/api/users/" + userId).then((response) => {
-			setProfileInfo(response.data);
-			setOriginalUserInfo(response.data);
-			setProfileStatus("pass");
-		}).then(() => {console.log("I have passed");});
+		axios
+			.get("/api/users/" + userId)
+			.then((response) => {
+				setProfileInfo(response.data);
+				setOriginalUserInfo(response.data);
+				setProfileStatus("pass");
+			})
+			.then(() => {
+				console.log("I have passed");
+			});
 	}, [userId]);
 
 	// get all tweets post by this user
@@ -46,46 +53,6 @@ export default function UserPage() {
 			setTweetsStatus("pass");
 		});
 	}, [profileInfo]);
-
-	// delete current tweet
-	// async function deleteTweet() {
-	// 	await axios.delete("/api/tweets/" + tweetId).then(function (response) {
-	// 		setStatus("pass");
-	// 		let path = "/";
-	// 		navigate(path);
-	// 	});
-	// }
-
-	// navigate to edit page
-	// function updateTweet() {
-	// 	setIsEdit(true);
-	// }
-
-	// cancel the update
-	// function cancelUpdate() {
-	// 	setIsEdit(false);
-	// }
-
-	async function updateProfile(e) {
-		e.preventDefault();
-		// await axios
-		// 	.post("/api/users/edit", {
-		// 		_id: profileInfo?._id,
-		// 		author: curUser._id,
-		// 		text: text,
-		// 		images: images,
-		// 	})
-		// 	.then(function (response) {
-		// 		let path = "/";
-		// 		navigate(path);
-		// 	});
-		// setText("");
-		// setImages([]);
-		// let path = "/tweet/" + tweetId;
-		// navigate(path);
-		console.log({ profileInfo });
-		setEditMode(false);
-	}
 
 	async function updateProfile() {
 		await axios.put("/api/users/edit", {

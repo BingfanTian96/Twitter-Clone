@@ -1,6 +1,6 @@
 import "../css/App.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function TweetEditForm({ curUser, placeholder, tweetId }) {
@@ -8,7 +8,6 @@ export default function TweetEditForm({ curUser, placeholder, tweetId }) {
 	const [images, setImages] = useState([]);
 	const [imgPost, setImgPost] = useState(false);
 	const [value, setValue] = useState("");
-	const userId = curUser._id;
 	const navigate = useNavigate();
 
 	// update current tweet
@@ -61,9 +60,7 @@ export default function TweetEditForm({ curUser, placeholder, tweetId }) {
 					placeholder={placeholder}
 					value={text}
 					onChange={(e) => setText(e.target.value)}
-				>
-					{/* {placeholder} */}
-				</textarea>
+				></textarea>
 				<div className="flex flex-row text-blue-500 justify-start items-center">
 					{!imgPost && (
 						<svg

@@ -4,13 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const TweetModel = require("../db/tweet/tweet.model");
 
-//      author: { type: mongoose.Types.ObjectId, ref: "user", require: true },
-// 		text: String,
-// 		likesCount: { type: Number, default: 0 },
-// 		commentsCount: { type: Number, default: 0 },
-// 		parent: { type: mongoose.Types.ObjectId, ref: "tweet" },
-// 		images: { type: [String] },
-
+// get all tweets
 router.get("/", function (req, res) {
 	TweetModel.getAllTweet()
 		.then(function (dbResponse) {
@@ -22,7 +16,6 @@ router.get("/", function (req, res) {
 		});
 });
 
-// /?tweetId={tweetId}
 // get a tweet by a tweetId
 router.get("/:id", async function (req, res) {
 	const id = req.params.id;
@@ -52,6 +45,7 @@ router.get("/userId/:id", function (req, res) {
 		});
 });
 
+// post a new tweet
 router.post("/", function (req, res) {
 	const newTweet = req.body;
 	TweetModel.createTweet(newTweet)
@@ -63,6 +57,7 @@ router.post("/", function (req, res) {
 		});
 });
 
+// edit a tweet
 router.put("/edit", function (req, res) {
 	const newTweet = req.body;
 	TweetModel.updateTweet(newTweet)
@@ -74,6 +69,7 @@ router.put("/edit", function (req, res) {
 		});
 });
 
+// delete a tweet
 router.delete("/:id", function (req, res) {
 	const id = req.params.id;
 	TweetModel.deleteTweet(id).then(function () {

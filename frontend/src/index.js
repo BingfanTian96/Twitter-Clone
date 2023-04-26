@@ -3,8 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./pages/App";
 import TweetPage from "./pages/Tweet";
-import reportWebVitals from "./reportWebVitals";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import UserPage from "./pages/User";
@@ -28,12 +27,12 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/login",
-		element: <LoginPage/>,
+		element: <LoginPage />,
 	},
 	{
 		path: "/signUp",
-		element: <SignUpPage/>,
-	}
+		element: <SignUpPage />,
+	},
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
