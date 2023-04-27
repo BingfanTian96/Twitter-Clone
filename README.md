@@ -27,13 +27,13 @@ You can start vist our Twitter clone project from [link](https://twitter-clone-c
 ## Writeup: Collaborators wrote this together
 ### What were some challenges you faced while making this app?
 For us, the biggest challenge was checking and keeping track of the login user status. In addition, we referenced tailwind CSS instead of traditional CSS files to increase the maintainability of our code. Some Youtube videos gave us design ideas.
-[reference 1](https://tailwindcss.com/)
+[tailwind CSS](https://tailwindcss.com/)
 
-[reference 2](https://www.youtube.com/watch?v=P4kuSxpjA48)
+[reference 1](https://www.youtube.com/watch?v=P4kuSxpjA48)
 
-[reference 3](https://www.youtube.com/watch?v=g-bY6hf6GCw)
+[reference 2](https://www.youtube.com/watch?v=g-bY6hf6GCw)
 
-[reference 4](https://www.youtube.com/watch?v=tSwVLJZpXyQ)
+[reference 3](https://www.youtube.com/watch?v=tSwVLJZpXyQ)
 
 ### Given more time, what additional features, functional or design changes would you make?
 
