@@ -37,7 +37,7 @@ For us, the biggest challenge was checking and keeping track of the login user s
 
 ### Given more time, what additional features, functional or design changes would you make?
 
-Given more time, we would like to continue implementing the features of commenting, retweeting, replying and liking, and following other users. Currently, we just add some buttons on the front end, but these buttons do not perform any function. This is our next step!
+Given more time, we would like to continue implementing the features of commenting, retweeting, replying and liking, and following other users. Currently, we just add some buttons on the front end, but these buttons do not perform any function. This is our next step! In addition, currently, our picture status posting can only be achieved by adding a picture url, but in real life, Twitter and users can post their own local pictures to the server, which is also a feature worth implementing.
 
 
 ### What assumptions did you make while working on this assignment?
