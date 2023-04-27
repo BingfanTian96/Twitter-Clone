@@ -2,7 +2,7 @@
 # Deliverables
 ## Link to the repo:
 
-https://github.com/Yiranluc/Twitter-Clone
+https://github.com/Yiranluc/bingfan-tian-yiran-wang-project3
 
 ## This project is deployed on Render:
 
