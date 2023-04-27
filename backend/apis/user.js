@@ -57,7 +57,7 @@ router.get("/:id", function (req, res) {
 
 router.post("/login", async function (req, res) {
 	const username = req.body.username;
-
+	
 	UserModel.findUserByUsername(username)
 		.then((user) => {
 			

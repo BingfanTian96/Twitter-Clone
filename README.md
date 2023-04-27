@@ -42,7 +42,7 @@ Given more time, we would like to continue implementing the features of commenti
 
 ### What assumptions did you make while working on this assignment?
 
-We assume that the user understands that we upload images via URL. Due to the complexity of the database storage of local pictures, we gave up the function of implement local upload.
+We assume that the user understands that we upload images via URL. Due to the complexity of the database storage of local pictures, we gave up the function of implement local upload. In addition, we assume no more than one user should try to log in to our Twitter-Clone in one browser at a time. We assumed this so that we would not handle or notify users about this situation either. All users may face some unexpected errors if they do so. However, different users on different browsers or machines can log in to our app at the same time.
 
 ### How long did this assignment take to complete?
 
