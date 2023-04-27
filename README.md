@@ -6,7 +6,7 @@ https://github.com/Yiranluc/bingfan-tian-yiran-wang-project3
 
 ## This project is deployed on Render:
 
-You can start vist our Twitter clone project from [link](https://twitter-clone-cm03.onrender.com/)
+You can start visit our Twitter clone project from [link](https://twitter-clone-cm03.onrender.com/)
 
 ## Collaborators:
  - Yiran Wang, Bingfan Tian
