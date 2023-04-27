@@ -26,7 +26,7 @@ You can start vist our Twitter clone project from [link](https://twitter-clone-c
 
 ## Writeup: Collaborators wrote this together
 ### What were some challenges you faced while making this app?
-For us, the biggest challenge was checking and keeping track of the login user status. In addition, we referenced tailwind CSS instead of traditional CSS files to increase the maintainability of our code. Some Youtube videos gave us design ideas.
+For us, the biggest challenge was checking and keeping track of the login user status. We tried several different solutions on the internet including cookies, Session storage. In addition, we referenced tailwind CSS instead of traditional CSS files to increase the maintainability of our code. Some Youtube videos gave us design ideas.
 [tailwind CSS](https://tailwindcss.com/)
 
 [reference 1](https://www.youtube.com/watch?v=P4kuSxpjA48)
