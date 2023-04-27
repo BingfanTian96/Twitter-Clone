@@ -4,7 +4,7 @@
 
 https://github.com/Yiranluc/Twitter-Clone
 
-## This project is deployed on Netlify and Vercel:
+## This project is deployed on Render:
 
 You can start vist our Twitter clone project from [link](https://twitter-clone-cm03.onrender.com/)
 
@@ -20,7 +20,7 @@ You can start vist our Twitter clone project from [link](https://twitter-clone-c
  - Login/Logout
  - Sign up new user with basic input check
  - Home page, view without login and post tweet with login
- - post a new tweet with image(by image url)
+ - post a new tweet with image (by image url)
  - Tweet detail page, can edit the tweet if you are the author
  - Personal profile page, can edit the profile if this is your account
 
@@ -47,12 +47,3 @@ We assume that the user understands that we upload images via URL. Due to the co
 ### How long did this assignment take to complete?
 
 2 weeks in total.
-
-
-Run backend
-1. `npm install express`
-2. `node server.js`
-
-Run Frontend
-1. `npm install`
-2. `npm start`
