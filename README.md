@@ -42,7 +42,7 @@ Given more time, we would like to continue implementing the features of commenti
 
 ### What assumptions did you make while working on this assignment?
 
-We assumed that the players in our game know a lot of 6-letter and 7-letter English words. Since in our games, we only allow user to enter words with either 6 or 7 letters. And in our word database, we only included around 2000 words in total which can be identified as valid English words. In addition, we did not check if the words we included are rather common or not. It means that players are very likely to be prompted with the message 'the word is not valid' although they entered a valid English word in the game, simply because our database is not huge enough.
+We assume that the user understands that we upload images via URL. Due to the complexity of the database storage of local pictures, we gave up the function of implement local upload.
 
 ### How long did this assignment take to complete?
 
