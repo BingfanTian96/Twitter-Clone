@@ -6,7 +6,7 @@ const cors = require("cors");
 const path = require("path");
 const users = require("./apis/user");
 // const cookieParser = require("cookie-parser");
-// const authHelper = require('./middlewares/authHelper');
+
 const mongoDBEndpoint =
 	"mongodb+srv://admin:CS5610@twitter-clone.qzlzgnp.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(mongoDBEndpoint, { useNewUrlParser: true });
