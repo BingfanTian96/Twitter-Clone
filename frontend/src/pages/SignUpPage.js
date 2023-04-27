@@ -1,5 +1,5 @@
-import LoginHeader from "../components/loginHeader";
-import Signup from "../components/signUp";
+import LoginHeader from "../components/loginHeader.js";
+import Signup from "../components/signUp.js";
 import React from 'react';
 
 export default function SignUpPage(){

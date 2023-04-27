@@ -1,10 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useUserInfo from "../hooks/useUserInfo";
-import SideBar from "../components/sideBar";
-import TweetCard from "../components/tweetCard";
-import TopNavLink from "../components/topNav";
-import TweetEditForm from "../components/tweetEditForm";
+import useUserInfo from "../hooks/useUserInfo.js";
+import SideBar from "../components/sideBar.js";
+import TweetCard from "../components/tweetCard.js";
+import TopNavLink from "../components/topNav.js";
+import TweetEditForm from "../components/tweetEditForm.js";
 import axios from "axios";
 
 export default function TweetPage() {

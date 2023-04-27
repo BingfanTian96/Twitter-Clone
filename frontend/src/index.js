@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./pages/App";
-import TweetPage from "./pages/Tweet";
+import App from "./pages/App.js";
+import TweetPage from "./pages/Tweet.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
-import UserPage from "./pages/User";
-import LoginPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage";
+import UserPage from "./pages/User.js";
+import LoginPage from "./pages/LoginPage.js";
+import SignUpPage from "./pages/SignUpPage.js";
 
 TimeAgo.addDefaultLocale(en);
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { signupFields } from "../constants/formFields"
-import LoginInput from "./loginInput";
+import { signupFields } from "../constants/formFields.js"
+import LoginInput from "./loginInput.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import React from 'react';

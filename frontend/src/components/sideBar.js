@@ -1,6 +1,6 @@
 import "../css/App.css";
-import ProfilePill from "./profilePill";
-import MenuItem from "./menuItem";
+import ProfilePill from "./profilePill.js";
+import MenuItem from "./menuItem.js";
 import { Link } from "react-router-dom";
 import axios from "axios";
 

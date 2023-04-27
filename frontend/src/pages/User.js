@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useUserInfo from "../hooks/useUserInfo";
-import SideBar from "../components/sideBar";
-import TweetCard from "../components/tweetCard";
+import useUserInfo from "../hooks/useUserInfo.js";
+import SideBar from "../components/sideBar.js";
+import TweetCard from "../components/tweetCard.js";
 import axios from "axios";
-import TopNavLink from "../components/topNav";
+import TopNavLink from "../components/topNav.js";
 
 export default function UserPage() {
 	const { userId } = useParams();

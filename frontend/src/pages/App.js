@@ -1,11 +1,11 @@
 import "../css/App.css";
-import SideBar from "../components/sideBar";
+import SideBar from "../components/sideBar.js";
 import { useEffect, useState } from "react";
-import TweetPostForm from "../components/tweetPostForm";
-import TweetCard from "../components/tweetCard";
-import TweetHeader from "../components/tweetHeader";
+import TweetPostForm from "../components/tweetPostForm.js";
+import TweetCard from "../components/tweetCard.js";
+import TweetHeader from "../components/tweetHeader.js";
 import axios from "axios";
-import useUserInfo from "../hooks/useUserInfo";
+import useUserInfo from "../hooks/useUserInfo.js";
 
 export default function App() {
 	const [tweets, setTweets] = useState([]);

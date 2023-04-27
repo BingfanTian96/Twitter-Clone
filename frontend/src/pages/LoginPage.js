@@ -1,5 +1,5 @@
-import LoginHeader from "../components/loginHeader"
-import Login from "../components/login"
+import LoginHeader from "../components/loginHeader.js"
+import Login from "../components/login.js"
 import React from 'react';
 
 export default function LoginPage(){
