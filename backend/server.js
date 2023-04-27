@@ -36,7 +36,7 @@ app.use(session({
 app.use("/api/users/", users);
 app.use("/api/tweets/", tweets);
 
-let frontend_dir = path.join(__dirname, "..", "frontend");
+let frontend_dir = path.join(__dirname, "..", "frontend", "build");
 
 app.use(express.static(frontend_dir));
 
